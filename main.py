@@ -88,7 +88,7 @@ def initBeatmap(notemap):
         # beatmap.append([[[i[0]-1, i[1], 0, 0, 0]], i[2]+1])
         # beatmap.append([[[i[0], i[1]+1, 0, 0, 0]], i[2]+1])
         # beatmap.append([[[i[0], i[1]-1, 0, 0, 0]], i[2]+1])
-    for e in range(0,round(notemap[len(notemap)-1][2]),16):
+    for e in range(0,round(notemap[len(notemap)-1][2]), 16):
         for k in range(0, 8):
             for f in range(0,9):
                 beatmap.append([[k, 0, round(30/9*f), round(30/9*f), round(30/9*f)], e+8-f])
@@ -233,6 +233,7 @@ def playSong(folder, notes, lp):
             y = button[1]
             r, g, b = 0, 0, 0
             if button[2] == 127:
+
                 status = checkClose(curnotes, curbeat, x, y)
                 lp.LedCtrlXY(x, y, 63, 63, 63)
                 if status == 'perfect':
@@ -248,6 +249,12 @@ def playSong(folder, notes, lp):
                 lp.LedCtrlXY(x - 1, y, r, g, b)
                 lp.LedCtrlXY(x, y + 1, r, g, b)
                 lp.LedCtrlXY(x, y - 1, r, g, b)
+                if (x,y) == (8,8):
+                    mixer.music.unload()
+                    going = False
+                    lp.LedAllOn(3)
+                    time.sleep(.1)
+                    lp.LedAllOn(0)
             else:
                 lp.LedCtrlXYByCode(x, y, 0)
                 lp.LedCtrlXYByCode(x + 1, y, 0)
@@ -302,7 +309,6 @@ if __name__ == '__main__':
     def startsong():
         mixer.music.unload()
         notesdata = beatsaberConverter('Songs/{}'.format(FILE[0]), DIFCHOICE[0])
-        lp = initPad()
         playSong('Songs/{}'.format(FILE[0]), notesdata, lp)
         pass
 
@@ -319,6 +325,7 @@ if __name__ == '__main__':
     menu.add_button('Quit', pygame_menu.events.EXIT, align=pygame_menu.locals.ALIGN_RIGHT)
 
     pygame.display.set_caption('Project LP')
+    lp = initPad()
     menu.mainloop(surface, main_background)
 
 
