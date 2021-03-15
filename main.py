@@ -42,7 +42,6 @@ def beatsaberConverter(folder, dif):
         else:
             r,g,b, = 1,10,63
         conversion.append([xpos, ypos, round(i['_time']*16,0), r,g,b])
-    #print(conversion)
     return conversion
 
 
@@ -112,13 +111,11 @@ def initBeatmap(notemap):
     #     if len(beatmap) >= c:
     #         stop = True
     #     c = c+1
-    #print(beatmap)
     return beatmap, notetime
 
 def lookInput(lp, image, len = 1):
     button = lp.ButtonStateXY()
 
-    #print(button)
     if button != []:
         x = button[0]
         y = button[1]
@@ -141,7 +138,6 @@ def lookInput(lp, image, len = 1):
 
 
         if button[2] == 127:
-            #print('{},{}'.format(x, y))
             lp.LedCtrlXY(x, y, 63, 63, 63)
             for i in range(1, len + 1):
                 lp.LedCtrlXY(x + i, y, r - (i - 1) * 10, g - (i - 1) * 10, b - (i - 1) * 10)
@@ -238,7 +234,6 @@ def playSong(folder, notes, lp):
             r, g, b = 0, 0, 0
             if button[2] == 127:
                 status = checkClose(curnotes, curbeat, x, y)
-                print(x, y, status)
                 lp.LedCtrlXY(x, y, 63, 63, 63)
                 if status == 'perfect':
                     r,g,b = 20, 35, 63
