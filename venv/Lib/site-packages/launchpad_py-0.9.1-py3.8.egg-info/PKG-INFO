@@ -1,0 +1,27 @@
+Metadata-Version: 1.0
+Name: launchpad-py
+Version: 0.9.1
+Summary: A Novation Launchpad control suite for Python
+Home-page: https://github.com/FMMT666/launchpad.py
+Author: FMMT666(ASkr)
+Author-email: fmmt666@users.noreply.github.com
+License: CC BY 4.0
+Description: 
+        
+        launchpad.py
+        ============
+        
+        A Novation Launchpad control suite for Python.
+        
+        If you ever dreamed of using your Launchpad for completely other stuff than music: Welcome !-)  
+        
+        Compatible with most [tm] single board computers.
+        
+        For details and additional documentation, see:  
+        
+          https://github.com/FMMT666/launchpad.py
+        
+        
+        
+Keywords: novation launchpad midi
+Platform: UNKNOWN

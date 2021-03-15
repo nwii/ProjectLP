@@ -1,0 +1,69 @@
+{
+  "_version": "2.0.0",
+  "_songName": "Utena",
+  "_songSubName": "",
+  "_songAuthorName": "Reol",
+  "_levelAuthorName": "ETAN",
+  "_beatsPerMinute": 160,
+  "_shuffle": 0,
+  "_shufflePeriod": 0.5,
+  "_previewStartTime": 88.6675033569336,
+  "_previewDuration": 10,
+  "_songFilename": "Utena.ogg",
+  "_coverImageFilename": "cover.jpg",
+  "_environmentName": "PanicEnvironment",
+  "_songTimeOffset": 0,
+  "_customData": {
+    "_contributors": []
+  },
+  "_difficultyBeatmapSets": [
+    {
+      "_beatmapCharacteristicName": "Standard",
+      "_difficultyBeatmaps": [
+        {
+          "_difficulty": "ExpertPlus",
+          "_difficultyRank": 9,
+          "_beatmapFilename": "ExpertPlusStandard.dat",
+          "_noteJumpMovementSpeed": 21,
+          "_noteJumpStartBeatOffset": -0.30000001192092896,
+          "_customData": {
+            "_difficultyLabel": "Aa, doujinai na..",
+            "_editorOffset": -25,
+            "_editorOldOffset": -25,
+            "_warnings": [],
+            "_information": [],
+            "_suggestions": [
+              "Chroma",
+              "Chroma Lighting Events"
+            ],
+            "_requirements": []
+          }
+        }
+      ]
+    },
+    {
+      "_beatmapCharacteristicName": "Lightshow",
+      "_difficultyBeatmaps": [
+        {
+          "_difficulty": "Easy",
+          "_difficultyRank": 1,
+          "_beatmapFilename": "EasyLightshow.dat",
+          "_noteJumpMovementSpeed": 16,
+          "_noteJumpStartBeatOffset": 0,
+          "_customData": {
+            "_difficultyLabel": "Lightshow",
+            "_editorOffset": -20,
+            "_editorOldOffset": -20,
+            "_warnings": [],
+            "_information": [],
+            "_suggestions": [
+              "Chroma",
+              "Chroma Lighting Events"
+            ],
+            "_requirements": []
+          }
+        }
+      ]
+    }
+  ]
+}
