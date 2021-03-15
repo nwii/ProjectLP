@@ -301,8 +301,6 @@ if __name__ == '__main__':
 
     def startsong():
         mixer.music.unload()
-        print(FILE[0])
-        print(DIFCHOICE[0])
         notesdata = beatsaberConverter('Songs/{}'.format(FILE[0]), DIFCHOICE[0])
         lp = initPad()
         playSong('Songs/{}'.format(FILE[0]), notesdata, lp)
