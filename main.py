@@ -214,8 +214,8 @@ def initBeatmap(notemap):
     """
     uncomment these 2 lines to use sortkeys
     """
-    #beatmap.sort(key=sortKeyb)
-    #notetime.sort(key=sortKeyt)
+    beatmap.sort(key=sortKeyb)
+    notetime.sort(key=sortKeyt)
 
     #c = 0
     #stop = False
@@ -324,13 +324,13 @@ def playSong(folder, DIFCHOICE, lp):
                     chooses 'hit' color based on timing
                     """
                     if status == 'perfect':
-                        r,g,b = 20, 35, 63
+                        r,g,b = 10, 17, 31
                     if status == 'good':
-                        r,g,b = 15, 63, 15
+                        r,g,b = 7, 31, 7
                     elif status == 'ok':
-                        r, g, b = 63, 60, 10
+                        r, g, b = 31, 30, 5
                     elif status == 'bad':
-                        r, g, b = 63, 10, 10
+                        r, g, b = 31, 5, 5
 
                     lp.LedCtrlXY(x + 1, y, r, g, b)
                     lp.LedCtrlXY(x - 1, y, r, g, b)
