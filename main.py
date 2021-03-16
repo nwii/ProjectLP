@@ -226,10 +226,7 @@ def playSong(folder, DIFCHOICE, lp):
             curlight = [x for x in lightmap if x[1] <= curbeat]
             curnotes = [x for x in notemap if x[2] <= curbeat+7]
 
-            # print(notemap[0])
-            # # print(curnotes)
-            # print(len(curnotes))
-            # print(len(notemap))
+
             for lights in curlight:
                 sendNote(lights[0], lp)
                 lightmap.remove(lights)
