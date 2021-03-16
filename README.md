@@ -16,3 +16,6 @@ pip install -r requiredpackages.txt
 
 USB cable for launchpads arent very good, 
 if something breaks first stop program and unplug/replug both ends of the cable
+
+See it working:
+https://www.youtube.com/watch?v=FirlDSlfG7g
