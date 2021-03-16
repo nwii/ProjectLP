@@ -1,5 +1,6 @@
 # ProjectLP
-Converts Beatsaber To be played on a novation launchpad MK2 
+Converts Beatsaber To be played on a novation launchpad MK2,
+So far only works for MK2 Launchpads (more on the way)
 
 Uses these resources: 
 
@@ -14,6 +15,7 @@ https://pygame-menu.readthedocs.io/en/4.0.0/
 - Download zip
 - unzip to anywhere
 - run ProjectLP.exe
+- If you're only interested in running the program, you should only need the Song folder and the .exe
 
 
 ##### To work on code:
