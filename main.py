@@ -317,7 +317,7 @@ if __name__ == '__main__':
         if mixer.music.get_busy():
             mixer.music.unload()
         mixer.music.load('Songs/{}/{}'.format(file, infolist[value[1]]['_songFilename']))
-        mixer.music.play(start=infolist[value[1]]['_previewStartTime'])
+        mixer.music.play(start=infolist[value[1]]['_previewStartTime'], fade_ms= 1000)
         pass
 
     def startsong():
