@@ -282,7 +282,10 @@ def playSong(folder, DIFCHOICE, lp):
             if len(notemap) == 0:
                 time.sleep(1)
                 going = False
+                lp.LedCtrlString('l', 63, 63, 63, direction=-1, waitms=0)
+                lp.LedCtrlString('l', 63, 63, 63, direction=1, waitms=0)
                 lp.LedAllOn(0)
+
 
 
 
@@ -314,7 +317,6 @@ if __name__ == '__main__':
         FILE[0] = file
         COVERJPG[0] = infolist[value[1]]['_coverImageFilename']
         d1.update_elements(difset)
-
         if mixer.music.get_busy():
             mixer.music.unload()
         mixer.music.load('Songs/{}/{}'.format(file, infolist[value[1]]['_songFilename']))
