@@ -290,6 +290,7 @@ def playSong(folder, DIFCHOICE, lp):
 if __name__ == '__main__':
     DIFCHOICE = [0]
     FILE = ['0cb1b38c96b71676db359a95353dca50ba54b183']
+    COVERJPG = ['cover.jpg']
 
     diffs = [('None', 0)]
     songlist, infolist = initmenu()
@@ -300,7 +301,7 @@ if __name__ == '__main__':
 
 
     def main_background() -> None:
-        background = pygame_menu.baseimage.BaseImage(image_path='Songs/{}/cover.jpg'.format(FILE[0]))
+        background = pygame_menu.baseimage.BaseImage(image_path='Songs/{}/{}'.format(FILE[0], COVERJPG[0]))
 
         background.draw(surface)
 
@@ -311,9 +312,9 @@ if __name__ == '__main__':
 
     def setlevel(value, difset, file):
         FILE[0] = file
+        COVERJPG[0] = infolist[value[1]]['_coverImageFilename']
         d1.update_elements(difset)
-        background = pygame_menu.baseimage.BaseImage(image_path='Songs/{}/cover.jpg'.format(FILE[0]))
-        background.draw(surface)
+
         if mixer.music.get_busy():
             mixer.music.unload()
         mixer.music.load('Songs/{}/{}'.format(file, infolist[value[1]]['_songFilename']))
