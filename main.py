@@ -199,76 +199,90 @@ def initmenu():
 
 
 
-def playSong(folder, notes, lp):
-    file = open('{}/info.dat'.format(folder))
-    info = ast.literal_eval(file.read())
-    songfile = '{}/{}'.format(folder, info['_songFilename'])
-    SpB = 1/(info['_beatsPerMinute']/60)
-    file.close()
+def playSong(folder, DIFCHOICE, lp):
+    restart = True
+    while restart:
+        notes = beatsaberConverter('Songs/{}'.format(FILE[0]), DIFCHOICE)
 
-    lightmap, notemap = initBeatmap(notes)
+        file = open('{}/info.dat'.format(folder))
+        info = ast.literal_eval(file.read())
+        songfile = '{}/{}'.format(folder, info['_songFilename'])
+        SpB = 1/(info['_beatsPerMinute']/60)
+        file.close()
 
-    mixer.music.load(songfile)
-    mixer.music.play()
-    time.sleep(info['_songTimeOffset']/1000)
+        lightmap, notemap = initBeatmap(notes)
 
-    startTime = time.perf_counter()
-    going = True
-    while going:
-        button = lp.ButtonStateXY()
-        curbeat = (time.perf_counter() - startTime)*16/SpB
-        curlight = [x for x in lightmap if x[1] <= curbeat]
-        curnotes = [x for x in notemap if x[2] <= curbeat+7]
+        restart = False
 
-        # print(notemap[0])
-        # # print(curnotes)
-        # print(len(curnotes))
-        # print(len(notemap))
-        for lights in curlight:
-            sendNote(lights[0], lp)
-            lightmap.remove(lights)
+        mixer.music.load(songfile)
+        mixer.music.play()
+        time.sleep(info['_songTimeOffset']/1000)
 
-        if button != []:
-            x = button[0]
-            y = button[1]
-            r, g, b = 0, 0, 0
-            if button[2] == 127:
+        startTime = time.perf_counter()
+        going = True
+        while going:
+            button = lp.ButtonStateXY()
+            curbeat = (time.perf_counter() - startTime)*16/SpB
+            curlight = [x for x in lightmap if x[1] <= curbeat]
+            curnotes = [x for x in notemap if x[2] <= curbeat+7]
 
-                status = checkClose(curnotes, curbeat, x, y)
-                lp.LedCtrlXY(x, y, 63, 63, 63)
-                if status == 'perfect':
-                    r,g,b = 20, 35, 63
-                if status == 'good':
-                    r,g,b = 15, 63, 15
-                elif status == 'ok':
-                    r, g, b = 63, 60, 10
-                elif status == 'bad':
-                    r, g, b = 63, 10, 10
+            # print(notemap[0])
+            # # print(curnotes)
+            # print(len(curnotes))
+            # print(len(notemap))
+            for lights in curlight:
+                sendNote(lights[0], lp)
+                lightmap.remove(lights)
 
-                lp.LedCtrlXY(x + 1, y, r, g, b)
-                lp.LedCtrlXY(x - 1, y, r, g, b)
-                lp.LedCtrlXY(x, y + 1, r, g, b)
-                lp.LedCtrlXY(x, y - 1, r, g, b)
-                if (x,y) == (8,8):
-                    mixer.music.unload()
-                    going = False
-                    lp.LedAllOn(3)
-                    time.sleep(.1)
-                    lp.LedAllOn(0)
-            else:
-                lp.LedCtrlXYByCode(x, y, 0)
-                lp.LedCtrlXYByCode(x + 1, y, 0)
-                lp.LedCtrlXYByCode(x - 1, y, 0)
-                lp.LedCtrlXYByCode(x, y + 1, 0)
-                lp.LedCtrlXYByCode(x, y - 1, 0)
+            if button != []:
+                x = button[0]
+                y = button[1]
+                r, g, b = 0, 0, 0
+                if button[2] == 127:
+                    status = checkClose(curnotes, curbeat, x, y)
+                    lp.LedCtrlXY(x, y, 63, 63, 63)
+                    if status == 'perfect':
+                        r,g,b = 20, 35, 63
+                    if status == 'good':
+                        r,g,b = 15, 63, 15
+                    elif status == 'ok':
+                        r, g, b = 63, 60, 10
+                    elif status == 'bad':
+                        r, g, b = 63, 10, 10
 
-        for n in curnotes:
-            if n[2] <= curbeat - 17:
-                notemap.remove(n)
-        if len(notemap) == 0:
-            time.sleep(1)
-            going = False
-            lp.LedAllOn(0)
+                    lp.LedCtrlXY(x + 1, y, r, g, b)
+                    lp.LedCtrlXY(x - 1, y, r, g, b)
+                    lp.LedCtrlXY(x, y + 1, r, g, b)
+                    lp.LedCtrlXY(x, y - 1, r, g, b)
+
+                    if (x,y) == (8,8):
+                        mixer.music.unload()
+                        going = False
+                        lp.LedAllOn(3)
+                        time.sleep(.1)
+                        lp.LedAllOn(0)
+                    if (x,y) == (8,7):
+                        mixer.music.unload()
+                        going = False
+                        restart = True
+                        lp.LedAllOn(6)
+                        time.sleep(.1)
+                        lp.LedAllOn(0)
+
+                else:
+                    lp.LedCtrlXYByCode(x, y, 0)
+                    lp.LedCtrlXYByCode(x + 1, y, 0)
+                    lp.LedCtrlXYByCode(x - 1, y, 0)
+                    lp.LedCtrlXYByCode(x, y + 1, 0)
+                    lp.LedCtrlXYByCode(x, y - 1, 0)
+
+            for n in curnotes:
+                if n[2] <= curbeat - 17:
+                    notemap.remove(n)
+            if len(notemap) == 0:
+                time.sleep(1)
+                going = False
+                lp.LedAllOn(0)
 
 
 
@@ -308,8 +322,7 @@ if __name__ == '__main__':
 
     def startsong():
         mixer.music.unload()
-        notesdata = beatsaberConverter('Songs/{}'.format(FILE[0]), DIFCHOICE[0])
-        playSong('Songs/{}'.format(FILE[0]), notesdata, lp)
+        playSong('Songs/{}'.format(FILE[0]), DIFCHOICE[0], lp)
         pass
 
 
