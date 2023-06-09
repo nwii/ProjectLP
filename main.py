@@ -67,7 +67,7 @@ def setlevel(value, difset, file):
     """
     FILE[0] = file
     COVERJPG[0] = infolist[value[1]]['_coverImageFilename']
-    d1.update_elements(difset)
+    d1.update_items(difset)
     print('Filename: {}'.format(file))
     print('Diffs: {}'.format(difset))
     if mixer.music.get_busy():
@@ -241,10 +241,24 @@ def initPad():
     Sets up launchpad using launchpad_py
     Currently supports LaunchpadMk2(), can be edited, but may require user input troubleshooting
     :Resources: https://github.com/FMMT666/launchpad.py
-    :return:
+    :return: Launchpad instance
     """
-    lp = launchpad.LaunchpadMk2()
-    lp.Open()
+
+    if launchpad.LaunchpadMk2().Check(0):
+        lp = launchpad.LaunchpadMk2()
+        if lp.Open(0):
+            print("Launchpad Mk2")
+            mode = "Mk2"
+
+    elif launchpad.LaunchpadMiniMk3().Check(1):
+        lp = launchpad.LaunchpadMiniMk3()
+        if lp.Open(1):
+            print("Launchpad Mini Mk3")
+            mode = "Pro"
+
+    if mode is None:
+        print("Did not find any Launchpads, meh...")
+
     lp.ButtonFlush()
     lp.LedCtrlString('OK', 63, 3, 63, direction=-1, waitms=0)
     return lp
@@ -260,6 +274,7 @@ def checkClose(curnotes, curbeat, x, y):
     :return: string 'rating'
     """
     for note in curnotes:
+        print(f"PRESSED {x} {y}. Checking note: {note}")
         if note[0] == x and note[1] == y:
             if curbeat - 1 <= note[2] <= curbeat + 1:
                 return 'perfect'
@@ -310,14 +325,19 @@ def playSong(folder, DIFCHOICE, lp):
                 lp.LedCtrlXY(lights[0][0], lights[0][1], lights[0][2], lights[0][3], lights[0][4])
                 lightmap.remove(lights)
 
+            # b2 = lp.ButtonStateRaw()
+            # if b2:
+            #     print(f"B@! {b2}")
+
             if button != []:
+                print(f"BUTTON PRESSED: {button[0:3]}")
                 """
                 Checks if user presses a button
                 """
                 x = button[0]
                 y = button[1]
                 r, g, b = 0, 0, 0
-                if button[2] == 127:
+                if button[2]:
                     status = checkClose(curnotes, curbeat, x, y)
                     lp.LedCtrlXY(x, y, 63, 63, 63)
                     """
@@ -386,12 +406,12 @@ if __name__ == '__main__':
     main_menu_theme.set_background_color_opacity(0.4)
     main_menu_theme.widget_font=pygame_menu.font.FONT_HELVETICA
 
-    menu = pygame_menu.Menu(350, 450, 'Project LP', theme=main_menu_theme)
+    menu = pygame_menu.Menu('Project LP', 350, 450, theme=main_menu_theme)
 
-    menu.add_selector('Song: ', songlist, onchange=setlevel)
-    d1 = menu.add_selector('Difficulty: ', diffs, onchange=setdif)
-    menu.add_button('START', startsong,  shadow=True, shadow_color=(0, 0, 100))
-    menu.add_button('Quit', pygame_menu.events.EXIT, align=pygame_menu.locals.ALIGN_RIGHT)
+    menu.add.selector('Song: ', songlist, onchange=setlevel)
+    d1 = menu.add.selector('Difficulty: ', diffs, onchange=setdif)
+    menu.add.button('START', startsong,  shadow_width=10, shadow_color=(0, 0, 100))
+    menu.add.button('Quit', pygame_menu.events.EXIT)
 
     pygame.display.set_caption('Project LP')
 
