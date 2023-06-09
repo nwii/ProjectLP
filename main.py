@@ -274,7 +274,6 @@ def checkClose(curnotes, curbeat, x, y):
     :return: string 'rating'
     """
     for note in curnotes:
-        print(f"PRESSED {x} {y}. Checking note: {note}")
         if note[0] == x and note[1] == y:
             if curbeat - 1 <= note[2] <= curbeat + 1:
                 return 'perfect'
@@ -325,12 +324,7 @@ def playSong(folder, DIFCHOICE, lp):
                 lp.LedCtrlXY(lights[0][0], lights[0][1], lights[0][2], lights[0][3], lights[0][4])
                 lightmap.remove(lights)
 
-            # b2 = lp.ButtonStateRaw()
-            # if b2:
-            #     print(f"B@! {b2}")
-
             if button != []:
-                print(f"BUTTON PRESSED: {button[0:3]}")
                 """
                 Checks if user presses a button
                 """
